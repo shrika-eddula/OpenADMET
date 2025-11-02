@@ -23,3 +23,4 @@ chemprop
 
 # Additional dependencies from common.py imports
 tqdm
+ipykernel
