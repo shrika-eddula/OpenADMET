@@ -99,6 +99,7 @@ class ChemeleonRegressor(RegressorMixin, BaseEstimator):
         devices: str | int | Sequence[int] = "auto",
         epochs: int = 20,
     ):
+        print(f"Initializing ChemeleonRegressor with batch_size={batch_size}, epochs={epochs}")
         args = Namespace(
             num_workers=num_workers,
             batch_size=batch_size,
@@ -132,12 +133,18 @@ class ChemeleonRegressor(RegressorMixin, BaseEstimator):
         return self.predict(X)
 
     def fit(self, X, y):
+        print(f"ChemeleonRegressor.fit() called with {len(X)} samples")
+        print(f"Building datapoints from molecules...")
         datapoints = self._build_dps(X, y)
+        print(f"Creating dataset from {len(datapoints)} datapoints")
         train_set = make_dataset(datapoints)
         if self.model is None:
+            print(f"Initializing model (first time)")
             output_scaler = train_set.normalize_targets()
             output_transform = UnscaleTransform.from_standard_scaler(output_scaler)
+            print(f"Building model architecture...")
             self.model = build_model(self.args, train_set, output_transform, [None] * 4)
+        print(f"Creating DataLoader with batch_size={self.args.batch_size}")
         train_loader = DataLoader(
             train_set,
             batch_size=self.args.batch_size,
@@ -145,6 +152,7 @@ class ChemeleonRegressor(RegressorMixin, BaseEstimator):
             num_workers=self.args.num_workers,
             collate_fn=collate_batch,
         )
+        print(f"Setting up PyTorch Lightning Trainer (epochs={self.args.epochs})")
         trainer = Trainer(
             accelerator=self.args.accelerator,
             devices=self.args.devices,
@@ -153,26 +161,35 @@ class ChemeleonRegressor(RegressorMixin, BaseEstimator):
             logger=False,
             enable_checkpointing=False,
         )
+        print(f"Starting model training...")
         trainer.fit(self.model, train_dataloaders=train_loader)
+        print(f"ChemeleonRegressor training complete")
         return self
 
     def predict(self, X):
+        print(f"ChemeleonRegressor.predict() called with {len(X)} samples")
+        print(f"Building datapoints for prediction...")
         datapoints = self._build_dps(X, None)
+        print(f"Creating test dataset from {len(datapoints)} datapoints")
         test_set = make_dataset(datapoints)
         self._y = test_set.Y
+        print(f"Creating prediction DataLoader with batch_size={self.args.batch_size}")
         dl = DataLoader(
             test_set,
             batch_size=self.args.batch_size,
             num_workers=self.args.num_workers,
             collate_fn=collate_batch,
         )
+        print(f"Setting up prediction Trainer")
         eval_trainer = Trainer(
             accelerator=self.args.accelerator,
             devices=1,
             enable_progress_bar=True,
             logger=False,
         )
+        print(f"Running prediction...")
         preds = eval_trainer.predict(self.model, dataloaders=dl, return_predictions=True)
+        print(f"Prediction complete, processing results")
         return torch.cat(preds, dim=0).numpy(force=True).reshape(-1, 1)
 
 
@@ -239,6 +256,17 @@ def get_prf_pipe(
     final_estimator: Literal["elasticnet", "hgb", "rf"] = "hgb",
     global_target_scaling: bool = True,
 ):
+    print(f"Building PRF pipeline with params:")
+    print(f"  morgan_radius: {morgan_radius}")
+    print(f"  stack_chemprop: {stack_chemprop}")
+    print(f"  stack_xgb: {stack_xgb}")
+    print(f"  stack_knn: {stack_knn}")
+    print(f"  stack_elasticnet: {stack_elasticnet}")
+    print(f"  stack_svr: {stack_svr}")
+    print(f"  final_estimator: {final_estimator}")
+    print(f"  global_target_scaling: {global_target_scaling}")
+    print(f"  extra_transformers: {len(extra_transformers) if extra_transformers else 0}")
+    
     if extra_transformers is None:
         extra_transformers = []
 
@@ -325,6 +353,7 @@ def get_prf_pipe(
     else:
         raise ValueError(f"Unknown final_estimator: {final_estimator}")
 
+    print(f"Creating StackingRegressor with {len(estimators)} base estimators")
     model = StackingRegressor(
         estimators=estimators,
         final_estimator=final_estimator_model,
@@ -333,6 +362,7 @@ def get_prf_pipe(
         cv=5,
     )
 
+    print(f"Building final pipeline")
     pipe = Pipeline(
         [
             ("smiles2mol", SmilesToMolTransformer()),
@@ -342,18 +372,22 @@ def get_prf_pipe(
     )
 
     if global_target_scaling:
+        print(f"Applying QuantileTransformer for target scaling")
         return TransformedTargetRegressor(
             regressor=pipe,
             transformer=QuantileTransformer(n_quantiles=100, output_distribution="normal", random_state=random_seed),
         )
     else:
+        print(f"Returning pipeline without target scaling")
         return pipe
 
 
 class PreviousModelTransformer:
     def __init__(self, model_paths: list[Path], cache_db: Path = Path("model_cache.sqlite")):
+        print(f"Initializing PreviousModelTransformer with {len(model_paths)} models")
         self.model_paths = model_paths
         self.cache_db = cache_db
+        print(f"Using cache database at {cache_db}")
         self._ensure_schema()
 
     def _ensure_schema(self):
@@ -394,25 +428,33 @@ class PreviousModelTransformer:
         return self
 
     def transform(self, X):
+        print(f"PreviousModelTransformer.transform() called with {len(X)} samples")
         smis = [MolToSmiles(mol[0]) for mol in X]
         preds = []
 
         with sqlite3.connect(self.cache_db) as conn:
-            for model_path in self.model_paths:
+            for i, model_path in enumerate(self.model_paths):
+                print(f"Processing model {i+1}/{len(self.model_paths)}: {model_path.name}")
                 # 1. Check cache
+                print(f"  Checking cache for {len(smis)} SMILES")
                 cached = self._fetch_cached_predictions(conn, model_path, smis)
                 missing = [s for s in smis if s not in cached]
+                print(f"  Found {len(cached)} cached predictions, {len(missing)} missing")
 
                 # 2. Compute missing predictions
                 if missing:
+                    print(f"  Loading model from {model_path}")
                     model = joblib.load(model_path)
+                    print(f"  Running predictions for {len(missing)} SMILES")
                     new_preds = model.predict(missing).flatten()
+                    print(f"  Caching {len(new_preds)} new predictions")
                     self._insert_predictions(conn, model_path, missing, new_preds)
                     del model
                 else:
                     new_preds = []
 
                 # 3. Combine cached + new results
+                print(f"  Combining cached and new predictions")
                 all_preds = np.array([cached.get(s) for s in smis], dtype=np.float64)
                 # Fill missing entries
                 for i, s in enumerate(smis):
@@ -421,7 +463,9 @@ class PreviousModelTransformer:
                         idx = missing.index(s)
                         all_preds[i] = new_preds[idx]
                 preds.append(all_preds)
+                print(f"  Model {i+1} processing complete")
 
+        print(f"PreviousModelTransformer: returning {len(preds)} feature columns")
         return np.stack(preds, axis=1)
 
 
