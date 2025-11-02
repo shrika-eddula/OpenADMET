@@ -1,0 +1,25 @@
+# Core dependencies
+numpy
+pandas
+joblib
+matplotlib
+scipy
+
+# Chemistry-specific packages
+rdkit
+scikit-mol
+
+# Machine learning packages
+scikit-learn
+xgboost
+lightning
+torch
+
+# Project-specific packages
+astartes[molecules]
+huggingface_hub
+optuna
+chemprop
+
+# Additional dependencies from common.py imports
+tqdm
