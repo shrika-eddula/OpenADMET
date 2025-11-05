@@ -1,0 +1,339 @@
+{
+  "successful_endpoints": [
+    "HLM_CLint",
+    "MLM_CLint",
+    "Caco_2_Permeability_Papp_AtoB",
+    "Caco_2_Permeability_Efflux",
+    "KSOL",
+    "MBPB",
+    "MGMB",
+    "MPPB"
+  ],
+  "failed_endpoints": [],
+  "results": {
+    "HLM_CLint": {
+      "endpoint": "HLM_CLint",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 3009,
+        "val": 375,
+        "test": 375
+      },
+      "test_performance": {
+        "test/rmse": 73.29721069335938,
+        "test/mae": 41.244815826416016,
+        "test/r2": -18407.189453125
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/HLM_CLint/HLM_CLint-epoch=031-val_loss=1.3379.ckpt",
+      "scaler_params": {
+        "mean": 53.302160186108345,
+        "std": 124.81893600317503
+      }
+    },
+    "MLM_CLint": {
+      "endpoint": "MLM_CLint",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 3618,
+        "val": 452,
+        "test": 452
+      },
+      "test_performance": {
+        "test/rmse": 1169.5631103515625,
+        "test/mae": 659.4276123046875,
+        "test/r2": -1387759.0
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/MLM_CLint/MLM_CLint-epoch=020-val_loss=0.6278.ckpt",
+      "scaler_params": {
+        "mean": 561.6913211719183,
+        "std": 982.8761809607114
+      }
+    },
+    "Caco_2_Permeability_Papp_AtoB": {
+      "endpoint": "Caco_2_Permeability_Papp_AtoB",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 1727,
+        "val": 215,
+        "test": 215
+      },
+      "test_performance": {
+        "test/rmse": 15.247118949890137,
+        "test/mae": 13.223739624023438,
+        "test/r2": -232.6351776123047
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/Caco_2_Permeability_Papp_AtoB/Caco_2_Permeability_Papp_AtoB-epoch=044-val_loss=0.5813.ckpt",
+      "scaler_params": {
+        "mean": 12.167764910248989,
+        "std": 10.477772021152484
+      }
+    },
+    "Caco_2_Permeability_Efflux": {
+      "endpoint": "Caco_2_Permeability_Efflux",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 1729,
+        "val": 216,
+        "test": 216
+      },
+      "test_performance": {
+        "test/rmse": 6.49715518951416,
+        "test/mae": 3.7724735736846924,
+        "test/r2": -82.4297103881836
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/Caco_2_Permeability_Efflux/Caco_2_Permeability_Efflux-epoch=063-val_loss=0.2063.ckpt",
+      "scaler_params": {
+        "mean": 4.312463851937537,
+        "std": 9.97118658374173
+      }
+    },
+    "KSOL": {
+      "endpoint": "KSOL",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 4104,
+        "val": 512,
+        "test": 512
+      },
+      "test_performance": {
+        "test/rmse": 163.44602966308594,
+        "test/mae": 129.8012237548828,
+        "test/r2": -25898.84375
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/KSOL/KSOL-epoch=049-val_loss=0.4456.ckpt",
+      "scaler_params": {
+        "mean": 149.24098352582845,
+        "std": 114.6796002246477
+      }
+    },
+    "MBPB": {
+      "endpoint": "MBPB",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 781,
+        "val": 97,
+        "test": 97
+      },
+      "test_performance": {
+        "test/rmse": 11.11401081085205,
+        "test/mae": 7.512880802154541,
+        "test/r2": -279.2110595703125
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/MBPB/MBPB-epoch=027-val_loss=0.4352.ckpt",
+      "scaler_params": {
+        "mean": 7.7673111395646615,
+        "std": 11.78300225179492
+      }
+    },
+    "MGMB": {
+      "endpoint": "MGMB",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 178,
+        "val": 22,
+        "test": 22
+      },
+      "test_performance": {
+        "test/rmse": 26.223031997680664,
+        "test/mae": 23.921173095703125,
+        "test/r2": -2156.185791015625
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/MGMB/MGMB-epoch=013-val_loss=0.2542.ckpt",
+      "scaler_params": {
+        "mean": 7.57307415730337,
+        "std": 10.168624133192315
+      }
+    },
+    "MPPB": {
+      "endpoint": "MPPB",
+      "model_type": "Chemprop MPNN",
+      "training_config": {
+        "smiles_column": "SMILES",
+        "molecule_column": "Molecule Name",
+        "train_ratio": 0.8,
+        "val_ratio": 0.1,
+        "test_ratio": 0.1,
+        "batch_size": 32,
+        "num_workers": 0,
+        "max_epochs": 100,
+        "hidden_size": 300,
+        "depth": 3,
+        "dropout": 0.0,
+        "ffn_hidden_size": 300,
+        "ffn_num_layers": 2,
+        "learning_rate": 0.001,
+        "split_type": "scaffold_balanced",
+        "early_stopping_patience": 20,
+        "gradient_clip_val": 1.0
+      },
+      "data_splits": {
+        "train": 1042,
+        "val": 130,
+        "test": 130
+      },
+      "test_performance": {
+        "test/rmse": 21.8727970123291,
+        "test/mae": 16.23431396484375,
+        "test/r2": -470.0590515136719
+      },
+      "best_checkpoint": "/Users/khiemnguyen/Desktop/Pedal/OpenADMET/checkpoints/MPPB/MPPB-epoch=019-val_loss=0.2138.ckpt",
+      "scaler_params": {
+        "mean": 14.850287907869482,
+        "std": 16.54813211515434
+      }
+    }
+  },
+  "config": {
+    "smiles_column": "SMILES",
+    "molecule_column": "Molecule Name",
+    "train_ratio": 0.8,
+    "val_ratio": 0.1,
+    "test_ratio": 0.1,
+    "batch_size": 32,
+    "num_workers": 0,
+    "max_epochs": 100,
+    "hidden_size": 300,
+    "depth": 3,
+    "dropout": 0.0,
+    "ffn_hidden_size": 300,
+    "ffn_num_layers": 2,
+    "learning_rate": 0.001,
+    "split_type": "scaffold_balanced",
+    "early_stopping_patience": 20,
+    "gradient_clip_val": 1.0
+  },
+  "timestamp": "2025-10-29T12:15:22.366039"
+}

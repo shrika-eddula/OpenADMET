@@ -1,0 +1,68 @@
+Summary of Endpoint Datasets
+==================================================
+
+Total molecules in original training set: 5326
+
+Endpoint: LogD
+  File: train_LogD.csv
+  Molecules with data: 5039
+  Min value: -2.00
+  Max value: 5.20
+  Mean value: 2.11
+
+Endpoint: KSOL
+  File: train_KSOL.csv
+  Molecules with data: 5128
+  Min value: 0.00
+  Max value: 325.00
+  Mean value: 146.34
+
+Endpoint: HLM CLint
+  File: train_HLM_CLint.csv
+  Molecules with data: 3759
+  Min value: 0.00
+  Max value: 2589.90
+  Mean value: 52.78
+
+Endpoint: MLM CLint
+  File: train_MLM_CLint.csv
+  Molecules with data: 4522
+  Min value: 0.00
+  Max value: 10354.80
+  Mean value: 560.53
+
+Endpoint: Caco-2 Permeability Papp A>B
+  File: train_Caco_2_Permeability_Papp_AtoB.csv
+  Molecules with data: 2157
+  Min value: 0.00
+  Max value: 51.41
+  Mean value: 12.40
+
+Endpoint: Caco-2 Permeability Efflux
+  File: train_Caco_2_Permeability_Efflux.csv
+  Molecules with data: 2161
+  Min value: 0.26
+  Max value: 105.64
+  Mean value: 4.22
+
+Endpoint: MPPB
+  File: train_MPPB.csv
+  Molecules with data: 1302
+  Min value: 0.00
+  Max value: 87.60
+  Mean value: 14.75
+
+Endpoint: MBPB
+  File: train_MBPB.csv
+  Molecules with data: 975
+  Min value: 0.00
+  Max value: 99.23
+  Mean value: 7.67
+
+Endpoint: MGMB
+  File: train_MGMB.csv
+  Molecules with data: 222
+  Min value: 0.00
+  Max value: 61.80
+  Mean value: 7.53
+

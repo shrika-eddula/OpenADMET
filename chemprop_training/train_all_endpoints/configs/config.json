@@ -1,0 +1,84 @@
+{
+  "model_config": {
+    "smiles_column": "SMILES",
+    "molecule_column": "Molecule Name",
+    "train_ratio": 0.8,
+    "val_ratio": 0.1,
+    "test_ratio": 0.1,
+    "batch_size": 32,
+    "num_workers": 0,
+    "max_epochs": 100,
+    "hidden_size": 300,
+    "depth": 3,
+    "dropout": 0.0,
+    "ffn_hidden_size": 300,
+    "ffn_num_layers": 2,
+    "learning_rate": 0.001,
+    "split_type": "scaffold_balanced",
+    "early_stopping_patience": 20,
+    "gradient_clip_val": 1.0
+  },
+  "endpoints": {
+    "LogD": {
+      "skip": true,
+      "target_column": "LogD",
+      "task_type": "regression",
+      "description": "Lipophilicity at pH 7.4"
+    },
+    "HLM_CLint": {
+      "skip": false,
+      "target_column": "HLM CLint",
+      "task_type": "regression",
+      "description": "Human liver microsomal clearance"
+    },
+    "MLM_CLint": {
+      "skip": false,
+      "target_column": "MLM CLint",
+      "task_type": "regression",
+      "description": "Mouse liver microsomal clearance"
+    },
+    "Caco_2_Permeability_Papp_AtoB": {
+      "skip": false,
+      "target_column": "Caco-2 Permeability Papp A>B",
+      "task_type": "regression",
+      "description": "Caco-2 permeability (apical to basolateral)"
+    },
+    "Caco_2_Permeability_Efflux": {
+      "skip": false,
+      "target_column": "Caco-2 Permeability Efflux",
+      "task_type": "regression",
+      "description": "Caco-2 efflux ratio"
+    },
+    "KSOL": {
+      "skip": false,
+      "target_column": "KSOL",
+      "task_type": "regression",
+      "description": "Kinetic solubility"
+    },
+    "MBPB": {
+      "skip": false,
+      "target_column": "MBPB",
+      "task_type": "regression",
+      "description": "Mouse blood plasma binding"
+    },
+    "MGMB": {
+      "skip": false,
+      "target_column": "MGMB",
+      "task_type": "regression",
+      "description": "Mouse gut microbiome binding"
+    },
+    "MPPB": {
+      "skip": false,
+      "target_column": "MPPB",
+      "task_type": "regression",
+      "description": "Mouse plasma protein binding"
+    }
+  },
+  "training_settings": {
+    "use_gpu": true,
+    "seed": 42,
+    "save_top_k_checkpoints": 3,
+    "log_every_n_steps": 50,
+    "check_val_every_n_epoch": 1
+  }
+}

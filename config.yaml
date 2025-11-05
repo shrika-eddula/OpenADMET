@@ -1,0 +1,37 @@
+# OpenADMET Configuration
+# Configuration file for OpenADMET ExpansionRx Challenge data sources
+
+# Constants
+# Application-wide constants for paths and filenames
+constants:
+  # Root directory for data files
+  data_root: "Data"
+  
+  # CSV filenames for remote datasets
+  teaser_csv: "expansion_data_teaser.csv"
+  train_csv: "expansion_data_train.csv"
+  test_csv: "expansion_data_test_blinded.csv"
+  
+  # Default file extensions for saving
+  extensions:
+    csv: ".csv"
+    pickle: ".pkl"
+    parquet: ".parquet"
+  
+  # Default output filenames
+  output_filenames:
+    teaser: "teaser.csv"
+    train: "train.csv"
+    test: "test.csv"
+
+# Data Links
+# HuggingFace dataset URLs for the challenge data
+data_links:
+  # Training dataset with labeled examples
+  train_url: "hf://datasets/openadmet/openadmet-expansionrx-challenge-train-data"
+  
+  # Test dataset with blinded labels for evaluation
+  test_url: "hf://datasets/openadmet/openadmet-expansionrx-challenge-test-data-blinded"
+  
+  # Teaser/sample dataset for initial exploration
+  teaser_url: "hf://datasets/openadmet/openadmet-expansionrx-challenge-teaser"
