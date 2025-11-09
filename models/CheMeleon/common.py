@@ -90,7 +90,7 @@ def add_train_defaults(args: Namespace) -> Namespace:
 class ChemeleonRegressor(RegressorMixin, BaseEstimator):
     def __init__(
         self,
-        num_workers: int = 0,
+        num_workers: int = 14,
         batch_size: int = 64,
         output_dir: Optional[PathLike] = CHEMPROP_TRAIN_DIR / "sklearn_output" / NOW,
         ffn_hidden_dim: int = 2_048,
