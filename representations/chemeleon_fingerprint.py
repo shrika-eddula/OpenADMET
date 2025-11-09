@@ -21,6 +21,7 @@ from chemprop.models import MPNN
 from rdkit.Chem import MolFromSmiles, Mol
 import numpy as np
 
+import pickle
 
 class CheMeleonFingerprint:
     def __init__(self, device: str | torch.device | None = None):
@@ -50,9 +51,15 @@ class CheMeleonFingerprint:
         bmg = BatchMolGraph([self.featurizer(MolFromSmiles(m) if isinstance(m, str) else m) for m in molecules])
         bmg.to(device=self.model.device)
         with torch.no_grad():
-            return self.model.fingerprint(bmg).numpy(force=True)
+            return self.model.fingerprint(bmg).numpy(force=True) 
 
 
 if __name__ == "__main__":
     chemeleon_fingerprint = CheMeleonFingerprint()
-    chemeleon_fingerprint(["C", "CC", MolFromSmiles("CCC")])
+    # returns a np array of shape (num_smiles_passed_in, 2048)
+    output = chemeleon_fingerprint(["C", "CC", MolFromSmiles("CCC")])
+    
+    with open("example_chemeleon_fingerprints.pkl", "wb") as f:
+        pickle.dump(output, f)
+
+    print(f'Output saved.')
