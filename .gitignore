@@ -208,3 +208,7 @@ __marimo__/
 
 # SLURM jobs
 *.out
+
+# Large encoding files
+representations/datafiles/chemeleon_fingerprints.npy
+representations/datafiles/combined_data_with_chemeleon_fingerprints.pkl
