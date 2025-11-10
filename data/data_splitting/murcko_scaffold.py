@@ -1,2 +1,0 @@
-from rdkit import Chem
-MurckoScaffoldSmilesFromSmiles
