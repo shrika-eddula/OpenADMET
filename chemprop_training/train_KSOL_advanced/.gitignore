@@ -1,0 +1,27 @@
+# Model checkpoints (moved to /checkpoints/)
+model_*/
+*.ckpt
+*.pt
+*.pth
+
+# Results
+*.png
+results_*/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+
+# Logs
+*.log
+logs/
+lightning_logs/
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store

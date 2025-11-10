@@ -1,0 +1,34 @@
+{
+  "model": {
+    "hidden_size": 512,
+    "depth": 4,
+    "ffn_hidden_size": 512,
+    "ffn_layers": 3,
+    "dropout": 0.1,
+    "batch_norm": true,
+    "aggregation": "mean"
+  },
+  "training": {
+    "epochs": 60,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "warmup_epochs": 2,
+    "patience": 15,
+    "augmentation_factor": 7
+  },
+  "ensemble": {
+    "n_models": 5,
+    "different_seeds": true
+  },
+  "data": {
+    "train_ratio": 0.8,
+    "val_ratio": 0.1,
+    "test_ratio": 0.1
+  },
+  "production": {
+    "uncertainty_threshold": 0.3,
+    "confidence_level": 0.95,
+    "min_prediction": -3.0,
+    "max_prediction": 3.0
+  }
+}
