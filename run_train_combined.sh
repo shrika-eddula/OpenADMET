@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -p mit_normal_gpu
-#SBATCH --job-name=chemprop_combined
+#SBATCH --job-name=combined
 #SBATCH --gres=gpu:2
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=15
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=32G
 #SBATCH --time=6:00:00
 #SBATCH --output=slurm-%j-%x.out

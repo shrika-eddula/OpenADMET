@@ -13,4 +13,4 @@
 conda activate OpenADMET
 
 # Run command or script
-python models/CheMeleon/training_combined.py models/CheMeleon/out
+python models/CheMeleon/training.py models/CheMeleon/out
