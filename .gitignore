@@ -210,5 +210,4 @@ __marimo__/
 *.out
 
 # Large encoding files
-# representations/datafiles/chemeleon_fingerprints.npy
-# representations/datafiles/combined_data_with_chemeleon_fingerprints.pkl
+representations/datafiles

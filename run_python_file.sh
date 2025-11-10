@@ -15,5 +15,5 @@ source chemprop_env/bin/activate
 
 # Run command or script
 # python representations/chemeleon_fingerprint.py
-python representations/generate_fingerprints.py
+python representations/scripts/generate_fingerprints.py
 echo "Command completed."
