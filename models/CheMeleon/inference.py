@@ -30,18 +30,30 @@ if __name__ == "__main__":
         "SMILES": df["SMILES"],  # original smiles for output, cleaned ones for inference
     }
 
-    targets = list(model_dir.glob("Log*"))
+    # targets = list(model_dir.glob("Log*"))
+    targets = [d for d in model_dir.iterdir() if d.is_dir() and d.name != "cache.db"]
     pbar = tqdm(total=len(targets))
     for target in targets:
         target_name = target.stem.replace("_", " ")
         pbar.set_description(f"Predicting '{target_name}'")
         pipe = joblib.load(target / "final_model.joblib")
         pred = pipe.predict(test_smiles)
-        if "Log" in target_name and target_name != "LogD":
-            pred = 10**pred
-            if "Log1" in target_name:
-                pred = pred - 1
-            target_name = target_name.replace("Log1", "").replace("Log", "")
+        
+        # Apply appropriate inverse transformations based on check_dataset_scale.ipynb
+        if target_name == "LogD":
+            # LogD wasn't transformed (log_scale=False)
+            pass
+        elif target_name == "KSOL" or target_name == "Caco-2 Permeability Papp A>B":
+            # These had log_scale=True and multiplier=1e-6
+            # Original transformation: log10((x+1)*1e-6)
+            # Inverse: (10^pred)/1e-6 - 1
+            pred = (10**pred) / 1e-6 - 1
+        else:
+            # All other metrics had log_scale=True and multiplier=1
+            # Original transformation: log10(x+1)
+            # Inverse: 10^pred - 1
+            pred = 10**pred - 1
+        
         out_data[target_name] = pred
         pbar.update(1)
     pbar.close()

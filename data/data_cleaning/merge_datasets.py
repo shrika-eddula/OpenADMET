@@ -1,15 +1,9 @@
 import pandas as pd
 
 # Load the three datasets
-<<<<<<< Updated upstream
 expansion_data = pd.read_csv('/home/jeanshe/orcd/pool/OpenADMET/Data/splits/Expansion_Log10_Transformed.csv')
 polaris_data = pd.read_csv('/home/jeanshe/orcd/pool/OpenADMET/Data/splits/Polaris_Log10_Transformed.csv')
 pharmabench_data = pd.read_csv('/home/jeanshe/orcd/pool/OpenADMET/Data/pharmabench_train_raw.csv')
-=======
-expansion_data = pd.read_csv('/home/shrika/OpenADMET/models/CheMeleon/expansion_data_train_raw.csv')
-polaris_data = pd.read_csv('/home/shrika/OpenADMET/Data/polaris_data_converted.csv')
-pharmabench_data = pd.read_csv('/home/shrika/OpenADMET/Data/pharmabench_train_raw.csv')
->>>>>>> Stashed changes
 
 # Concatenate all datasets
 # combined_data = pd.concat([expansion_data, polaris_data, pharmabench_data], ignore_index=True)
@@ -20,11 +14,7 @@ combined_data = pd.concat([expansion_data, pharmabench_data], ignore_index=True)
 combined_data = combined_data.drop_duplicates(subset=['SMILES'], keep='first')
 
 # Save the combined dataset
-<<<<<<< Updated upstream
 combined_data.to_csv('/home/jeanshe/orcd/pool/OpenADMET/Data/splits/Combined_Log10_Transformed_Canon_SMILES.csv', index=False)
-=======
-combined_data.to_csv('/home/shrika/OpenADMET/Data/pharmabench_expansion_dataset.csv', index=False)
->>>>>>> Stashed changes
 
 # Print summary statistics
 print(f"Total compounds in combined dataset: {len(combined_data)}")
