@@ -153,6 +153,7 @@ if __name__ == "__main__":
             target = _target
 
         # just in case
+        print("Available columns in the dataset:", _df.columns.tolist())
         df[target] = df[target].replace([np.inf, -np.inf], np.nan)
         initial_count = len(df)
         df = df.dropna(subset=[target])
