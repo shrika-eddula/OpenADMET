@@ -117,7 +117,7 @@ if __name__ == "__main__":
     print(f"Created output directory: {outdir}")
 
     # get the data
-    data_path = Path("Data/splits/FINAL_DATA.csv")
+    data_path = Path("data/datasets/FINAL_DATA.csv")
     if data_path.exists():
         _df = pd.read_csv(data_path)
         print(f"Loaded combined dataset from: {data_path}")
@@ -141,15 +141,17 @@ if __name__ == "__main__":
         df = _df.copy()
 
         # log (possibly +1) transform those which are not already logged
-        if "Log" not in _target:
-            if (df[_target] == 0.0).any():
-                target = "Log1" + _target
-                df[target] = np.log10(1 + df[_target])
-            else:
-                target = "Log" + _target
-                df[target] = np.log10(df[_target])
-        else:
-            target = _target
+        # if "Log" not in _target:
+        #     if (df[_target] == 0.0).any():
+        #         target = "Log1" + _target
+        #         df[target] = np.log10(1 + df[_target])
+        #     else:
+        #         target = "Log" + _target
+        #         df[target] = np.log10(df[_target])
+        # else:
+        #     target = _target
+        
+        target = _target
 
         # just in case
         df[target] = df[target].replace([np.inf, -np.inf], np.nan)
