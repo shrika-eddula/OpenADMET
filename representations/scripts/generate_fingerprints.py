@@ -10,7 +10,7 @@ chemeleon_fingerprint = CheMeleonFingerprint()
 print(f"CheMeleon fingerprint successfully initialized")
 
 # Load data
-input_filepath = "data/datasets/expansion_data_test_blinded.csv"
+input_filepath = "data/data_splitting/unique_scaffolds.csv"
 data = pd.read_csv(input_filepath)
 print(f"Data successfully loaded from {input_filepath}")
 
@@ -25,7 +25,8 @@ def produce_fingerprint(row):
     Returns:
         a numpy array, sized (2048,) of the CheMeleon fingerprint
     """
-    curr_smile = row["SMILES"]
+    # curr_smile = row["SMILES"]
+    curr_smile = row["Murcko Scaffold"]
     fingerprint = chemeleon_fingerprint([curr_smile])[0]
     # Ensure it's a numpy array and has the correct shape
     fingerprint = np.asarray(fingerprint, dtype=np.float32)
@@ -38,14 +39,14 @@ data["CheMeleon Fingerprint"] = data.apply(lambda row: produce_fingerprint(row),
 
 # Save embeddings+df as a new PKL file, append embeddings to the existing ADMET data
 # PKL stores the column of the df as numpy arrays, while .csv will convert to strings
-output_pkl = "representations/expansion_data_test_blinded_chemeleon_fingerprints.pkl"
+output_pkl = "data/data_splitting/unique_scaffolds_chemeleon_fingerprints.pkl"
 with open(output_pkl, "wb") as file:
     pickle.dump(data, file)
 
 print(f"Dataframe with representations saved to {output_pkl}")
 
 # Save embeddings as a NPY file
-output_npy = "representations/expansion_data_test_blinded_chemeleon_fingerprints.npy"
+output_npy = "data/data_splitting/unique_scaffolds_chemeleon_fingerprints.npy"
 fingerprint_array = data["CheMeleon Fingerprint"].to_numpy()
 with open(output_npy, "wb") as file:
     np.save(fingerprint_array, file)
